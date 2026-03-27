@@ -1,21 +1,18 @@
 package com.task.taskmanagement.dto;
 
-import com.task.taskmanagement.entity.TaskStatus;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
 import java.time.LocalDate;
 
+import com.task.taskmanagement.entity.TaskStatus;
+
+import lombok.Builder;
+import lombok.Data;
+
 @Data
-public class TaskRequest {
-
-    @NotNull(message = "Title is required")
+@Builder
+public class TaskResponse {
+    private String id;
     private String title;
-
     private String description;
-
     private TaskStatus status;
-
-    @NotNull(message = "Due date is required")
     private LocalDate dueDate;
 }
