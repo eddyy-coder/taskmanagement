@@ -1,8 +1,10 @@
 package com.task.taskmanagement.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.task.taskmanagement.dto.TaskRequest;
@@ -42,10 +44,18 @@ public class TaskService {
         Task task = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
 
-        if (request.getTitle() != null) task.setTitle(request.getTitle());
-        if (request.getDescription() != null) task.setDescription(request.getDescription());
-        if (request.getStatus() != null) task.setStatus(request.getStatus());
-        if (request.getDueDate() != null) task.setDueDate(request.getDueDate());
+        if (request.getTitle() != null) {
+            task.setTitle(request.getTitle());
+        }
+        if (request.getDescription() != null) {
+            task.setDescription(request.getDescription());
+        }
+        if (request.getStatus() != null) {
+            task.setStatus(request.getStatus());
+        }
+        if (request.getDueDate() != null) {
+            task.setDueDate(request.getDueDate());
+        }
 
         return mapToResponse(repository.save(task));
     }
@@ -57,11 +67,24 @@ public class TaskService {
         repository.deleteById(id);
     }
 
-    public List<TaskResponse> getAll() {
-        return repository.findAllByOrderByDueDateAsc()
-                .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+    public Map<String, Object> getAll(int page, int size, String status) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Task> taskPage;
+
+        if (status != null) {
+            taskPage = repository.findByStatusOrderByDueDateAsc(
+                    TaskStatus.valueOf(status.toUpperCase()), pageable);
+        } else {
+            taskPage = repository.findAllByOrderByDueDateAsc(pageable);
+        }
+
+        return Map.of(
+                "tasks", taskPage.getContent().stream().map(this::mapToResponse).toList(),
+                "currentPage", taskPage.getNumber(),
+                "totalItems", taskPage.getTotalElements(),
+                "totalPages", taskPage.getTotalPages()
+        );
     }
 
     private TaskResponse mapToResponse(Task task) {

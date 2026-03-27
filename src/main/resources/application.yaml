@@ -3,7 +3,7 @@ spring:
     name: taskmanagement
 
   datasource:
-    url: jdbc:h2:mem:taskdb
+    url: jdbc:h2:file:./data/taskdb
     driver-class-name: org.h2.Driver
     username: sa
     password: ""

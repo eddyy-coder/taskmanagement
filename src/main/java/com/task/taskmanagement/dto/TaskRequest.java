@@ -1,10 +1,12 @@
 package com.task.taskmanagement.dto;
 
+import java.time.LocalDate;
+
 import com.task.taskmanagement.entity.TaskStatus;
+
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Data
 public class TaskRequest {
@@ -17,5 +19,6 @@ public class TaskRequest {
     private TaskStatus status;
 
     @NotNull(message = "Due date is required")
+    @Future(message = "Due date must be in the future")
     private LocalDate dueDate;
 }

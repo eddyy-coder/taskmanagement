@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.task.taskmanagement.dto.ApiResponse;
@@ -59,7 +60,7 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<TaskResponse>> update(@PathVariable String id,
-                                                           @RequestBody TaskRequest request) {
+            @RequestBody TaskRequest request) {
 
         TaskResponse response = service.update(id, request);
 
@@ -88,14 +89,17 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<TaskResponse>>> getAll() {
-        List<TaskResponse> response = service.getAll();
+    public ResponseEntity<ApiResponse<Object>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(required = false) String status
+    ) {
 
         return ResponseEntity.ok(
-                ApiResponse.<List<TaskResponse>>builder()
+                ApiResponse.builder()
                         .status("SUCCESS")
                         .message("Tasks fetched successfully")
-                        .data(response)
+                        .data(service.getAll(page, size, status))
                         .error(null)
                         .build()
         );
