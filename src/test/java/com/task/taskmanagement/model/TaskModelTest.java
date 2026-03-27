@@ -1,15 +1,14 @@
 package com.task.taskmanagement.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.time.LocalDate;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 import com.task.taskmanagement.dto.TaskRequest;
 import com.task.taskmanagement.dto.TaskResponse;
 import com.task.taskmanagement.entity.Task;
 import com.task.taskmanagement.entity.TaskStatus;
-
-import org.junit.jupiter.api.Test;
 
 class TaskModelTest {
 
