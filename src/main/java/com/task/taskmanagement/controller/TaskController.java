@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.task.taskmanagement.dto.ApiResponse;
 import com.task.taskmanagement.dto.TaskRequest;
 import com.task.taskmanagement.dto.TaskResponse;
 import com.task.taskmanagement.service.TaskService;
@@ -29,29 +30,74 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskResponse> create(@Valid @RequestBody TaskRequest request) {
-        return ResponseEntity.ok(service.create(request));
+    public ResponseEntity<ApiResponse<TaskResponse>> create(@Valid @RequestBody TaskRequest request) {
+        TaskResponse response = service.create(request);
+
+        return ResponseEntity.ok(
+                ApiResponse.<TaskResponse>builder()
+                        .status("SUCCESS")
+                        .message("Task created successfully")
+                        .data(response)
+                        .error(null)
+                        .build()
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResponse> get(@PathVariable String id) {
-        return ResponseEntity.ok(service.getById(id));
+    public ResponseEntity<ApiResponse<TaskResponse>> get(@PathVariable String id) {
+        TaskResponse response = service.getById(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.<TaskResponse>builder()
+                        .status("SUCCESS")
+                        .message("Task fetched successfully")
+                        .data(response)
+                        .error(null)
+                        .build()
+        );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> update(@PathVariable String id,
-                                               @RequestBody TaskRequest request) {
-        return ResponseEntity.ok(service.update(id, request));
+    public ResponseEntity<ApiResponse<TaskResponse>> update(@PathVariable String id,
+                                                           @RequestBody TaskRequest request) {
+
+        TaskResponse response = service.update(id, request);
+
+        return ResponseEntity.ok(
+                ApiResponse.<TaskResponse>builder()
+                        .status("SUCCESS")
+                        .message("Task updated successfully")
+                        .data(response)
+                        .error(null)
+                        .build()
+        );
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable String id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .status("SUCCESS")
+                        .message("Task deleted successfully")
+                        .data(null)
+                        .error(null)
+                        .build()
+        );
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponse>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> getAll() {
+        List<TaskResponse> response = service.getAll();
+
+        return ResponseEntity.ok(
+                ApiResponse.<List<TaskResponse>>builder()
+                        .status("SUCCESS")
+                        .message("Tasks fetched successfully")
+                        .data(response)
+                        .error(null)
+                        .build()
+        );
     }
 }
