@@ -24,6 +24,12 @@ public class TaskService {
     }
 
     public TaskResponse create(TaskRequest request) {
+
+        // ✅ Validate due date
+        // if (request.getDueDate() == null || !request.getDueDate().isAfter(LocalDate.now())) {
+        //     throw new IllegalArgumentException("Due date must be in the future");
+        // }
+        
         Task task = new Task();
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
@@ -98,29 +104,15 @@ public class TaskService {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // public Map<String, Object> getAllWithCursor(
 //         int size,
 //         String status,
 //         String search,
 //         String cursor
 // ) {
-
 //     Pageable pageable = PageRequest.of(0, size); // always 0
 //     LocalDate cursorDate = (cursor != null) ? LocalDate.parse(cursor) : null;
-
 //     List<Task> tasks;
-
 //     if (cursorDate != null) {
 //         tasks = repository.findTasksWithCursor(
 //                 cursorDate,
@@ -135,11 +127,9 @@ public class TaskService {
 //                 pageable
 //         );
 //     }
-
 //     String nextCursor = tasks.size() > 0
 //             ? tasks.get(tasks.size() - 1).getDueDate().toString()
 //             : null;
-
 //     return Map.of(
 //             "tasks", tasks.stream().map(this::mapToResponse).toList(),
 //             "nextCursor", nextCursor
