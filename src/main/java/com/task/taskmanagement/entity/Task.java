@@ -38,3 +38,41 @@ public class Task {
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @Table(
+//     indexes = {
+//         @Index(name = "idx_title", columnList = "title")
+//     }
+// )
