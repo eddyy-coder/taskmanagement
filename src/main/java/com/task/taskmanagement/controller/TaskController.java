@@ -104,3 +104,44 @@ public class TaskController {
         );
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @GetMapping
+// public ResponseEntity<ApiResponse<Object>> getAll(
+//         @RequestParam(defaultValue = "5") int size,
+//         @RequestParam(required = false) String status,
+//         @RequestParam(required = false) String search,
+//         @RequestParam(required = false) String cursor   // 👈 NEW
+// ) {
+
+//     return ResponseEntity.ok(
+//             ApiResponse.builder()
+//                     .status("SUCCESS")
+//                     .message("Tasks fetched successfully")
+//                     .data(service.getAllWithCursor(size, status, search, cursor))
+//                     .error(null)
+//                     .build()
+//     );
+// }

@@ -21,6 +21,40 @@ public interface TaskRepository extends JpaRepository<Task, String> {
 
 
 
+// @Query("""
+//     SELECT t FROM Task t
+//     WHERE (:status IS NULL OR t.status = :status)
+//       AND (:search IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :search, '%')))
+//     ORDER BY t.dueDate ASC
+// """)
+// List<Task> findInitialTasks(
+//         @Param("status") TaskStatus status,
+//         @Param("search") String search,
+//         Pageable pageable
+// );
+
+
+
+
+// @Query("""
+//     SELECT t FROM Task t
+//     WHERE (:status IS NULL OR t.status = :status)
+//       AND (:search IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :search, '%')))
+//       AND (:cursorDate IS NULL OR t.dueDate > :cursorDate)
+//     ORDER BY t.dueDate ASC
+// """)
+// List<Task> findTasksWithCursor(
+//         @Param("cursorDate") LocalDate cursorDate,
+//         @Param("status") TaskStatus status,
+//         @Param("search") String search,
+//         Pageable pageable
+// );
+
+
+
+
+
+
 
 
 

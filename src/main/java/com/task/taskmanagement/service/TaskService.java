@@ -97,3 +97,51 @@ public class TaskService {
                 .build();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// public Map<String, Object> getAllWithCursor(
+//         int size,
+//         String status,
+//         String search,
+//         String cursor
+// ) {
+
+//     Pageable pageable = PageRequest.of(0, size); // always 0
+//     LocalDate cursorDate = (cursor != null) ? LocalDate.parse(cursor) : null;
+
+//     List<Task> tasks;
+
+//     if (cursorDate != null) {
+//         tasks = repository.findTasksWithCursor(
+//                 cursorDate,
+//                 status,
+//                 search,
+//                 pageable
+//         );
+//     } else {
+//         tasks = repository.findInitialTasks(
+//                 status,
+//                 search,
+//                 pageable
+//         );
+//     }
+
+//     String nextCursor = tasks.size() > 0
+//             ? tasks.get(tasks.size() - 1).getDueDate().toString()
+//             : null;
+
+//     return Map.of(
+//             "tasks", tasks.stream().map(this::mapToResponse).toList(),
+//             "nextCursor", nextCursor
+//     );
+// }
